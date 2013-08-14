@@ -1,0 +1,12 @@
+#todos-form {
+    margin-bottom: 1em;
+}
+
+#todos-table tr>td:nth-child(2) {
+    width:80%;
+}
+
+.completed{
+    font-style: italic;
+    text-decoration: line-through;
+}
