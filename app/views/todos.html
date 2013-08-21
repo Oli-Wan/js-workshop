@@ -1,61 +1,72 @@
 <div ng-controller="TodosCtrl">
-    <h3>My todos</h3>
+    <h4>
+        <a open=".todo-table-zone, #todos-form" class="visible-xs">
+            New todo
+        </a>
+        <span class="hidden-xs">New todo</span>
+    </h4>
 
-    <form id="todos-form" ng-submit="addTodo()">
+    <form id="todos-form" class="animate-ease" ng-submit="addTodo()">
         <div class="form-group">
-            <label for="title">Todo title</label>
-            <input type="text" class="form-control" id="title" placeholder="Enter title" ng-model="newTodo"
+            <label for="title" class="hidden-xs">Todo title</label>
+            <input type="text" class="form-control" id="title" placeholder="Todo title" ng-model="newTodo"
                    required>
         </div>
         <input type="submit" value="Add !" class="btn btn-primary"/>
+        <hr/>
     </form>
-    <div class="btn-group filters">
-        <button type="button" class="btn btn-primary" ng-class="{true:'active'}[completionFilter == null]"
-                ng-click="removeFilter()">All
-        </button>
-        <button type="button" class="btn btn-primary" ng-class="{false:'active'}[completionFilter.completed]"
-                ng-click="filter(false)">Active
-        </button>
-        <button type="button" class="btn btn-primary" ng-class="{true:'active'}[completionFilter.completed]"
-                ng-click="filter(true)">Completed
-        </button>
+    <div class="todo-table-zone animate-ease">
+        <h4>Todos</h4>
+
+        <div class="btn-group filters">
+            <button type="button" class="btn btn-primary" ng-class="{true:'active'}[completionFilter == null]"
+                    ng-click="removeFilter()">All
+            </button>
+            <button type="button" class="btn btn-primary" ng-class="{false:'active'}[completionFilter.completed]"
+                    ng-click="filter(false)">Active
+            </button>
+            <button type="button" class="btn btn-primary" ng-class="{true:'active'}[completionFilter.completed]"
+                    ng-click="filter(true)">Completed
+            </button>
+        </div>
+        <form ng-submit="doneEditing()">
+            <table id="todos-table" class="table table-striped">
+                <tr ng-repeat="todo in todos | filter:completionFilter" ng-class="{true:'completed'}[todo.completed]">
+                    <td>
+                        <input type="checkbox" ng-model="todo.completed" ng-change="onCompleted(todo)"
+                               ng-disabled="todo == editingTodo"/>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" ng-model="editingTodo.title"
+                               required ng-show="todo == editingTodo" ng-focus/>
+                        <span ng-hide="todo == editingTodo ">{{ todo.title }}</span>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-hide="todo == editingTodo"
+                                ng-click="startEditing(todo)" ng-disabled="todo.completed">
+                            Edit
+                        </button>
+                        <button type="submit" class="btn btn-success" ng-show="todo == editingTodo ">
+                            Save
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" ng-hide="todo == editingTodo "
+                                ng-click="removeTodo(todo)">
+                            Remove
+                        </button>
+                        <button type="button" class="btn btn-primary" ng-show="todo == editingTodo "
+                                ng-click="cancelEditing(todo)">
+                            Cancel
+                        </button>
+                    </td>
+                </tr>
+                <tr ng-show="todos.length == 0">
+                    <td>
+                        Please add a todo using the form
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
-    <form ng-submit="doneEditing()">
-        <table id="todos-table" class="table table-striped">
-            <tr ng-repeat="todo in todos | filter:completionFilter" ng-class="{true:'completed'}[todo.completed]">
-                <td>
-                    <input type="checkbox" ng-model="todo.completed" ng-change="onCompleted(todo)" ng-disabled="todo == editingTodo"/>
-                </td>
-                <td>
-                    <input type="text" class="form-control" ng-model="editingTodo.title"
-                           required ng-show="todo == editingTodo" ng-focus />
-                    <span ng-hide="todo == editingTodo ">{{ todo.title }}</span>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary" ng-hide="todo == editingTodo"
-                            ng-click="startEditing(todo)" ng-disabled="todo.completed">
-                        Edit
-                    </button>
-                    <button type="submit" class="btn btn-success" ng-show="todo == editingTodo ">
-                        Save
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger" ng-hide="todo == editingTodo "
-                            ng-click="removeTodo(todo)">
-                        Remove
-                    </button>
-                    <button type="button" class="btn btn-primary" ng-show="todo == editingTodo "
-                            ng-click="cancelEditing(todo)">
-                        Cancel
-                    </button>
-                </td>
-            </tr>
-            <tr ng-show="todos.length == 0">
-                <td>
-                    Please add a todo using the form
-                </td>
-            </tr>
-        </table>
-    </form>
 </div>
