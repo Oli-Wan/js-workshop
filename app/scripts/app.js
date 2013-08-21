@@ -7,10 +7,6 @@ angular.module('todoApp', ['ngResource'])
                 templateUrl: 'views/todos.html',
                 controller: 'TodosCtrl'
             })
-            .when('/about', {
-              templateUrl: 'views/about.html',
-              controller: 'AboutCtrl'
-            })
             .otherwise({
                 redirectTo: '/'
             });
