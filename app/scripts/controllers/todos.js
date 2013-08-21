@@ -68,6 +68,13 @@ angular.module('todoApp')
             $scope.editingTodo = null;
         };
 
+        $scope.toggleCompletion = function (todo) {
+            if ($scope.editingTodo)
+                return;
+            todo.completed = !todo.completed;
+            $scope.onCompleted(todo);
+        };
+
         $scope.onCompleted = function (todo) {
             socket.emit('update todo', todo);
         };

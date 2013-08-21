@@ -1,10 +1,10 @@
 <div ng-controller="TodosCtrl">
-    <h4>
+    <h3>
         <a open=".todo-table-zone, #todos-form" class="visible-xs">
             New todo
         </a>
         <span class="hidden-xs">New todo</span>
-    </h4>
+    </h3>
 
     <form id="todos-form" class="animate-ease" ng-submit="addTodo()">
         <div class="form-group">
@@ -16,7 +16,7 @@
         <hr/>
     </form>
     <div class="todo-table-zone animate-ease">
-        <h4>Todos</h4>
+        <h3>Todos</h3>
 
         <div class="btn-group filters">
             <button type="button" class="btn btn-primary" ng-class="{true:'active'}[completionFilter == null]"
@@ -32,14 +32,14 @@
         <form ng-submit="doneEditing()">
             <table id="todos-table" class="table table-striped">
                 <tr ng-repeat="todo in todos | filter:completionFilter" ng-class="{true:'completed'}[todo.completed]">
-                    <td>
+                    <td ng-click="toggleCompletion(todo)">
                         <input type="checkbox" ng-model="todo.completed" ng-change="onCompleted(todo)"
                                ng-disabled="todo == editingTodo"/>
                     </td>
-                    <td>
+                    <td ng-click="toggleCompletion(todo)">
                         <input type="text" class="form-control" ng-model="editingTodo.title"
                                required ng-show="todo == editingTodo" ng-focus/>
-                        <span ng-hide="todo == editingTodo ">{{ todo.title }}</span>
+                        <span ng-hide="todo == editingTodo">{{ todo.title }}</span>
                     </td>
                     <td>
                         <button type="button" class="btn btn-primary" ng-hide="todo == editingTodo"
