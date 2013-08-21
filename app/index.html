@@ -30,7 +30,8 @@
     <!-- Add your site or application content here -->
     <div class="container">
         <div class="jumbotron">
-            <h1>AngularJS Todo App <span class="pull-right glyphicon glyphicon-edit"></span></h1>
+            <h1>AngularJS Todo App
+                <span class="pull-right glyphicon glyphicon-edit"></span></h1>
 
             <p>Never forget what you have to do ! :)</p>
         </div>
@@ -45,6 +46,7 @@
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
         <!-- build:js scripts/modules.js -->
         <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -58,6 +60,7 @@
         <script src="scripts/services/localStorage.js"></script>
     <script src="scripts/directives/ngFocus.js"></script>
     <script src="scripts/services/NodeStorage.js"></script>
+    <script src="scripts/services/socket.js"></script>
     <!-- endbuild -->
 </body>
 </html>
